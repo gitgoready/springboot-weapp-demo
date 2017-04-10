@@ -11,9 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.io.support.PropertiesLoaderUtils;
@@ -25,6 +27,7 @@ import com.weapp.common.constant.ApiConstant;
 import com.weapp.common.properties.WxAuth;
 import com.weapp.entity.auth.AppKey;
 import com.weapp.repository.AppKeyRepository;
+import org.springframework.web.WebApplicationInitializer;
 
 /**
  *
@@ -37,6 +40,13 @@ import com.weapp.repository.AppKeyRepository;
 @ComponentScan(value = "com.weapp")
 @EnableConfigurationProperties(value={WxAuth.class})
 public class Application implements CommandLineRunner{
+//public class Application extends SpringBootServletInitializer implements WebApplicationInitializer {
+//	@Override
+//	protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+//		return application.sources(Application.class);
+//	}
+	//add end here
+
 	@Autowired
 	private AppKeyRepository repository;
 
@@ -71,6 +81,7 @@ public class Application implements CommandLineRunner{
 		}
 		repository.save(new AppKey("JWEJIJ345QHWJKENVKF", "sdsd", new Date(), new Date(), "1", false, apiMap));
 	}
+
 	@Bean
 	public ImmutableMap<String, String> errorCodeMap(){
 		return errorCodeMap;
